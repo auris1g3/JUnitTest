@@ -8,6 +8,19 @@
     <artifactId>JUnitTest</artifactId>
     <version>1.0-SNAPSHOT</version>
     <build>
+        <filters>
+            <filter>src/main/resources/env/config.${env}.properties</filter>
+        </filters>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*.properties</include>
+                </includes>
+            </resource>
+        </resources>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -23,6 +36,24 @@
     <properties>
         <jUnit-version>4.12</jUnit-version>
     </properties>
+
+    <profiles>
+        <profile>
+            <id>HillelInt</id>
+            <properties>
+                <env>int</env>
+            </properties>
+        </profile>
+        <profile>
+            <id>HillelQa</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <env>qa</env>
+            </properties>
+        </profile>
+    </profiles>
 
     <dependencies>
         <dependency>
